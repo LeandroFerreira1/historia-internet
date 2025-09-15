@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 História da Internet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: white;
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            text-align: right;
+            padding-right: calc(50% + 40px);
+        }
+
+        .timeline-item:nth-child(even) {
+            text-align: left;
+            padding-left: calc(50% + 40px);
+        }
+
+        .timeline-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+        }
+
+        .year {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .event-title {
+            font-size: 1.5em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .click-hint {
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animação escalonada para os cards */
+        .timeline-item:nth-child(1) .timeline-card {
+            animation-delay: 0.1s;
+        }
+
+        .timeline-item:nth-child(2) .timeline-card {
+            animation-delay: 0.2s;
+        }
+
+        .timeline-item:nth-child(3) .timeline-card {
+            animation-delay: 0.3s;
+        }
+
+        .timeline-item:nth-child(4) .timeline-card {
+            animation-delay: 0.4s;
+        }
+
+        .timeline-item:nth-child(5) .timeline-card {
+            animation-delay: 0.5s;
+        }
+
+        .timeline-item:nth-child(6) .timeline-card {
+            animation-delay: 0.6s;
+        }
+
+        .timeline-item:nth-child(7) .timeline-card {
+            animation-delay: 0.7s;
+        }
+
+        .timeline-item:nth-child(8) .timeline-card {
+            animation-delay: 0.8s;
+        }
+
+        .timeline-item:nth-child(9) .timeline-card {
+            animation-delay: 0.9s;
+        }
+
+        .timeline-item:nth-child(10) .timeline-card {
+            animation-delay: 1.0s;
+        }
+
+        .timeline-item:nth-child(11) .timeline-card {
+            animation-delay: 1.1s;
+        }
+
+        .timeline-item:nth-child(12) .timeline-card {
+            animation-delay: 1.2s;
+        }
+
+        .timeline-item:nth-child(13) .timeline-card {
+            animation-delay: 1.3s;
+        }
+
+        .timeline-item:nth-child(14) .timeline-card {
+            animation-delay: 1.4s;
+        }
+
+        .timeline-item:nth-child(15) .timeline-card {
+            animation-delay: 1.5s;
+        }
+
+        /* Efeito de hover melhorado */
+        .timeline-card:hover .click-hint {
+            animation-play-state: paused;
+            background: #45b7d1;
+            transform: scale(1.05);
+        }
+
+        .event-subtitle {
+            font-size: 1.2em;
+            color: #4ecdc4;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .event-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-container {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .modal-image {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transform: scale(0) rotate(180deg);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-overlay.active .modal-image {
+            transform: scale(1) rotate(0deg);
+        }
+
+        .modal-image:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .modal-image:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .modal-image:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .modal-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef, #9cccfc);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-image h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .modal-image p {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .close-modal {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            transform: scale(1.1);
+            background: #f0f0f0;
+        }
+
+        .close-modal:active {
+            transform: scale(0.95);
+        }
+
+        /* Garantir que o botão seja sempre visível */
+        .close-modal::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        /* Área de toque maior para mobile */
+        @media (max-width: 768px) {
+            .close-modal::after {
+                content: '';
+                position: absolute;
+                top: -10px;
+                left: -10px;
+                right: -10px;
+                bottom: -10px;
+                z-index: -1;
+            }
+        }
+
+        /* Botão voltar ao topo */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Indicador de progresso */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        /* Responsividade aprimorada */
+        @media (max-width: 1024px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .timeline-card {
+                padding: 25px;
+            }
+
+            .year {
+                font-size: 2.2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                text-align: center;
+                padding: 0 10px;
+            }
+
+            .timeline::before {
+                display: none;
+            }
+
+            .timeline-card {
+                padding: 20px;
+                margin: 0 auto 30px;
+                max-width: 400px;
+            }
+
+            .year {
+                font-size: 1.8em;
+            }
+
+            .event-title {
+                font-size: 1.3em;
+            }
+
+            .modal-container {
+                grid-template-columns: 1fr;
+                padding: 10px;
+                width: 95%;
+            }
+
+            .modal-image-placeholder {
+                height: 150px;
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 0.9em;
+            }
+
+            .timeline-card {
+                padding: 15px;
+            }
+
+            .year {
+                font-size: 1.5em;
+            }
+
+            .event-title {
+                font-size: 1.1em;
+            }
+
+            .event-subtitle {
+                font-size: 1em;
+            }
+
+            .click-hint {
+                font-size: 0.8em;
+                padding: 6px 12px;
+            }
+
+            .modal-image-placeholder {
+                height: 120px;
+                font-size: 1.5em;
+            }
+
+            .close-modal {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+                top: 15px;
+                right: 15px;
+                z-index: 1003;
+            }
+
+            .back-to-top {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 320px) {
+            body {
+                padding: 5px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .timeline-card {
+                padding: 12px;
+            }
+
+            .year {
+                font-size: 1.3em;
+            }
+
+            .event-title {
+                font-size: 1em;
+            }
+
+            .close-modal {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1em;
+                top: 10px;
+                right: 10px;
+                z-index: 1004;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🌐 História da Internet</h1>
+            <p>Uma jornada através do tempo para descobrir como a internet evoluiu</p>
+            <div style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">
+                <p>📅 De 1969 até 2024 • 🌍 Eventos que mudaram o mundo • 📱 Clique nos cards para explorar</p>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal1')">
+                    <div class="year">1969</div>
+                    <div class="event-title">ARPANET - O Primeiro Passo</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">O nascimento da internet!</div>
+                    <div class="event-description">Quatro universidades americanas conectaram seus computadores pela
+                        primeira vez. Era como ligar telefones, mas para computadores conversarem. Parecia impossível na
+                        época, mas foi o início de tudo que usamos hoje!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal2')">
+                    <div class="year">1971</div>
+                    <div class="event-title">Primeiro E-mail da História</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Nasceu o correio digital!</div>
+                    <div class="event-description">Ray Tomlinson enviou a primeira mensagem eletrônica e criou o símbolo
+                        "@". Foi como inventar o correio, mas instantâneo! Hoje enviamos bilhões de e-mails por dia
+                        graças a essa ideia simples.</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal3')">
+                    <div class="year">1991</div>
+                    <div class="event-title">World Wide Web (WWW)</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">A internet ganhou cara!</div>
+                    <div class="event-description">Tim Berners-Lee criou as páginas da web com links clicáveis.
+                        Transformou a internet de apenas texto em algo visual e fácil de usar. Foi como criar a primeira
+                        revista digital interativa do mundo!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal4')">
+                    <div class="year">1993</div>
+                    <div class="event-title">Mosaic - Primeiro Navegador Visual</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">A internet ganhou imagens!</div>
+                    <div class="event-description">O navegador Mosaic foi o primeiro a mostrar imagens junto com texto
+                        nas páginas web. Antes era só texto puro! Foi como sair de um jornal preto e branco para uma
+                        revista colorida. Abriu caminho para o que conhecemos hoje como navegação na web.</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal5')">
+                    <div class="year">1995</div>
+                    <div class="event-title">Compras Online - Amazon</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">O shopping veio para casa!</div>
+                    <div class="event-description">Jeff Bezos começou vendendo livros online na Amazon. Era
+                        revolucionário comprar sem sair de casa! Hoje compramos quase tudo pela internet, de comida a
+                        eletrônicos, graças a essa ideia pioneira.</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal6')">
+                    <div class="year">1996</div>
+                    <div class="event-title">Internet Explorer vs Netscape</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">A primeira guerra dos navegadores!</div>
+                    <div class="event-description">Microsoft e Netscape travaram uma batalha épica pelo controle dos
+                        navegadores. Foi como uma corrida espacial, mas para ver quem fazia o melhor navegador. Essa
+                        competição acelerou muito o desenvolvimento da web e trouxe inovações que usamos até hoje!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal7')">
+                    <div class="year">1998</div>
+                    <div class="event-title">Google - O Grande Buscador</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Encontrar virou fácil!</div>
+                    <div class="event-description">Dois estudantes criaram o Google numa garagem. Antes era difícil
+                        achar informações na internet. O Google virou nosso bibliotecário pessoal, encontrando qualquer
+                        coisa em segundos entre bilhões de páginas!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal8')">
+                    <div class="year">1999</div>
+                    <div class="event-title">Napster - Revolução Musical</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Música grátis para todos!</div>
+                    <div class="event-description">Shawn Fanning criou o Napster, permitindo compartilhar músicas pela
+                        internet. Foi polêmico, mas mudou para sempre como consumimos música. Abriu caminho para
+                        Spotify, Apple Music e toda a era do streaming que vivemos hoje!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal9')">
+                    <div class="year">2001</div>
+                    <div class="event-title">Wikipedia - Conhecimento Livre</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Enciclopédia mundial colaborativa!</div>
+                    <div class="event-description">Jimmy Wales criou a Wikipedia, onde qualquer pessoa pode contribuir
+                        com conhecimento. Foi revolucionário ter uma enciclopédia gratuita e sempre atualizada. Hoje é
+                        uma das maiores fontes de informação do mundo, escrita por milhões de voluntários!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal10')">
+                    <div class="year">2003</div>
+                    <div class="event-title">MySpace - Primeira Rede Social</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Perfis personalizados!</div>
+                    <div class="event-description">Antes do Facebook, o MySpace foi a primeira grande rede social. Você
+                        podia personalizar seu perfil com HTML, escolher sua música tema e fazer amigos online. Foi o
+                        laboratório que ensinou o mundo como funcionam as redes sociais!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal11')">
+                    <div class="year">2004</div>
+                    <div class="event-title">Facebook - Conectando o Mundo</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">O mundo ficou conectado!</div>
+                    <div class="event-description">Mark Zuckerberg criou o Facebook para conectar universitários. Depois
+                        vieram Instagram, Twitter e YouTube. A internet virou uma grande praça onde pessoas do mundo
+                        todo se encontram e compartilham suas vidas!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal12')">
+                    <div class="year">2005</div>
+                    <div class="event-title">YouTube - Era dos Vídeos</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Todos viraram produtores!</div>
+                    <div class="event-description">Três ex-funcionários do PayPal criaram o YouTube para compartilhar
+                        vídeos facilmente. O primeiro vídeo foi "Me at the zoo" com 19 segundos. Hoje bilhões de pessoas
+                        assistem e criam conteúdo, transformando qualquer um em uma TV pessoal!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal13')">
+                    <div class="year">2006</div>
+                    <div class="event-title">Twitter - Microblogging</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">140 caracteres que mudaram tudo!</div>
+                    <div class="event-description">Jack Dorsey criou o Twitter para mensagens curtas em tempo real.
+                        Começou como "What are you doing?" e virou a plataforma de notícias mais rápida do mundo.
+                        Presidentes, celebridades e pessoas comuns compartilham pensamentos instantâneos!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal14')">
+                    <div class="year">2007</div>
+                    <div class="event-title">iPhone - Revolução Móvel</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">O telefone virou computador!</div>
+                    <div class="event-description">Steve Jobs apresentou o iPhone, o primeiro smartphone com tela touch
+                        e internet de verdade. Mudou completamente como usamos a internet, criando a era dos apps e
+                        fazendo com que a web móvel se tornasse mais importante que a desktop!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal15')">
+                    <div class="year">2008</div>
+                    <div class="event-title">Bitcoin - Moeda Digital</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Dinheiro sem banco!</div>
+                    <div class="event-description">Satoshi Nakamoto (identidade misteriosa) criou o Bitcoin, a primeira
+                        criptomoeda. Foi revolucionário ter dinheiro digital sem precisar de bancos. Abriu caminho para
+                        milhares de outras moedas digitais e a tecnologia blockchain que está transformando o mundo
+                        financeiro!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal16')">
+                    <div class="year">2009</div>
+                    <div class="event-title">WhatsApp - Mensagens Instantâneas</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Adeus SMS, olá mensagens grátis!</div>
+                    <div class="event-description">Brian Acton e Jan Koum criaram o WhatsApp para substituir os caros
+                        SMS. Começou simples: apenas status online. Hoje conecta bilhões de pessoas gratuitamente,
+                        mudando como nos comunicamos e aproximando famílias ao redor do mundo!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal17')">
+                    <div class="year">2010</div>
+                    <div class="event-title">Instagram - Fotos Instantâneas</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Todos viraram fotógrafos!</div>
+                    <div class="event-description">Kevin Systrom e Mike Krieger criaram o Instagram para compartilhar
+                        fotos com filtros. Em apenas 2 meses tinha 1 milhão de usuários! Transformou como documentamos
+                        nossas vidas e criou a cultura dos influenciadores digitais que conhecemos hoje.</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal18')">
+                    <div class="year">2011</div>
+                    <div class="event-title">Snapchat - Mensagens que Desaparecem</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Privacidade digital!</div>
+                    <div class="event-description">Evan Spiegel criou o Snapchat com mensagens que se autodestroem. Foi
+                        revolucionário: pela primeira vez, o que você compartilhava online não ficava para sempre.
+                        Introduziu Stories, filtros de realidade aumentada e mudou como pensamos sobre privacidade
+                        digital!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal19')">
+                    <div class="year">2016</div>
+                    <div class="event-title">TikTok - Vídeos Curtos</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">15 segundos que mudaram tudo!</div>
+                    <div class="event-description">O TikTok (originalmente Musical.ly) popularizou vídeos curtos e
+                        verticais. Mudou completamente como consumimos conteúdo, criando uma nova geração de criadores e
+                        influenciando até mesmo o YouTube e Instagram a adotarem formatos similares!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal20')">
+                    <div class="year">2019</div>
+                    <div class="event-title">5G - O Futuro Chegou</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Velocidade da luz!</div>
+                    <div class="event-description">O 5G é 100 vezes mais rápido! Permite carros que se dirigem sozinhos,
+                        cirurgias à distância e realidade virtual perfeita. É a internet do futuro, conectando não só
+                        pessoas, mas também carros, casas e cidades inteligentes!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal21')">
+                    <div class="year">2020</div>
+                    <div class="event-title">Pandemia Digital</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">O mundo se mudou para online!</div>
+                    <div class="event-description">A COVID-19 acelerou a digitalização mundial. Trabalho remoto, aulas
+                        online, telemedicina e delivery explodiram. Em meses, avançamos anos na adoção digital. A
+                        internet se tornou ainda mais essencial, sendo nossa janela para o mundo durante o isolamento!
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal22')">
+                    <div class="year">2021</div>
+                    <div class="event-title">NFTs e Metaverso</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Arte digital e mundos virtuais!</div>
+                    <div class="event-description">NFTs permitiram vender arte digital única, e o conceito de metaverso
+                        ganhou força. Pessoas começaram a comprar terrenos virtuais e criar avatares digitais. Foi como
+                        criar uma segunda vida online, misturando realidade e fantasia!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal23')">
+                    <div class="year">2022</div>
+                    <div class="event-title">Era da Inteligência Artificial</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Computadores que pensam!</div>
+                    <div class="event-description">ChatGPT e outras IAs se tornaram populares. Agora você pode conversar
+                        com computadores inteligentes, pedir para escreverem textos, criarem imagens e resolverem
+                        problemas. É como ter um assistente genial sempre disponível!</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-card" onclick="openModal('modal24')">
+                    <div class="year">2024</div>
+                    <div class="event-title">Internet das Coisas (IoT)</div>
+                    <div class="click-hint">Clique para descobrir</div>
+                    <div class="event-subtitle">Tudo conectado!</div>
+                    <div class="event-description">Geladeiras, carros, lâmpadas, relógios - tudo ganhou internet! Sua
+                        casa pode ser controlada pelo celular, carros se comunicam entre si, e até plantas avisam quando
+                        precisam de água. É a internet saindo das telas e entrando em todos os objetos do nosso dia a
+                        dia!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button> <!-- Mo
+dals -->
+    <div class="modal-overlay" id="modal1" onclick="closeModal('modal1')">
+        <button class="close-modal" onclick="closeModal('modal1')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🖥️</div>
+                <h3>Primeiros Computadores</h3>
+                <p>Máquinas enormes que ocupavam salas inteiras e eram operadas por especialistas.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🔗</div>
+                <h3>Primeira Conexão</h3>
+                <p>UCLA e Stanford conectaram seus computadores, transmitindo a primeira mensagem: "LO".</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">📡</div>
+                <h3>Tecnologia Militar</h3>
+                <p>ARPANET foi criada pelo Departamento de Defesa americano para comunicação segura.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal2" onclick="closeModal('modal2')">
+        <button class="close-modal" onclick="closeModal('modal2')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">👨‍💻</div>
+                <h3>Ray Tomlinson</h3>
+                <p>O engenheiro que enviou o primeiro e-mail da história para si mesmo como teste.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">@</div>
+                <h3>Símbolo @</h3>
+                <p>Tomlinson escolheu o @ para separar o nome do usuário do nome do computador.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">📧</div>
+                <h3>Primeira Mensagem</h3>
+                <p>O conteúdo do primeiro e-mail foi algo como "QWERTYUIOP" - apenas um teste!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal3" onclick="closeModal('modal3')">
+        <button class="close-modal" onclick="closeModal('modal3')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">👨‍🔬</div>
+                <h3>Tim Berners-Lee</h3>
+                <p>O cientista britânico que criou a World Wide Web no CERN, na Suíça.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🌐</div>
+                <h3>Primeira Página Web</h3>
+                <p>A primeira página web explicava o que era a World Wide Web e como usar.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🔗</div>
+                <h3>Hyperlinks</h3>
+                <p>Links clicáveis que conectavam páginas diferentes, revolucionando a navegação.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal4" onclick="closeModal('modal4')">
+        <button class="close-modal" onclick="closeModal('modal4')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🖼️</div>
+                <h3>Primeira Imagem Web</h3>
+                <p>Mosaic foi o primeiro navegador a mostrar imagens junto com texto nas páginas.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🎨</div>
+                <h3>Interface Gráfica</h3>
+                <p>Transformou a web de texto puro em uma experiência visual rica e atrativa.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🚀</div>
+                <h3>Popularização</h3>
+                <p>Tornou a internet acessível para pessoas comuns, não apenas técnicos.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal5" onclick="closeModal('modal5')">
+        <button class="close-modal" onclick="closeModal('modal5')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🏪</div>
+                <h3>Garagem da Amazon</h3>
+                <p>Jeff Bezos começou vendendo livros de uma garagem em Bellevue, Washington.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">📚</div>
+                <h3>Primeiro Produto</h3>
+                <p>Livros foram escolhidos porque existem milhões de títulos e eram fáceis de enviar.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🛒</div>
+                <h3>Carrinho Digital</h3>
+                <p>A Amazon inventou o conceito de carrinho de compras online que usamos hoje.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal6" onclick="closeModal('modal6')">
+        <button class="close-modal" onclick="closeModal('modal6')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">⚔️</div>
+                <h3>Guerra dos Navegadores</h3>
+                <p>Microsoft Internet Explorer vs Netscape Navigator numa batalha épica.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">💡</div>
+                <h3>Inovações Rápidas</h3>
+                <p>Competição acelerou desenvolvimento de recursos como JavaScript e CSS.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🏆</div>
+                <h3>Legado Duradouro</h3>
+                <p>Estabeleceu padrões web que ainda usamos hoje em todos os navegadores.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal7" onclick="closeModal('modal7')">
+        <button class="close-modal" onclick="closeModal('modal7')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">👥</div>
+                <h3>Larry & Sergey</h3>
+                <p>Larry Page e Sergey Brin, estudantes de Stanford que criaram o Google.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🔍</div>
+                <h3>PageRank</h3>
+                <p>Algoritmo revolucionário que ranqueava páginas por relevância e popularidade.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🏠</div>
+                <h3>Garagem Famosa</h3>
+                <p>Susan Wojcicki alugou sua garagem para Larry e Sergey por $1.700/mês.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal8" onclick="closeModal('modal8')">
+        <button class="close-modal" onclick="closeModal('modal8')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🎵</div>
+                <h3>Shawn Fanning</h3>
+                <p>Estudante de 18 anos que criou o Napster no seu dormitório universitário.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">💿</div>
+                <h3>Fim dos CDs</h3>
+                <p>Napster começou a transição da música física para digital.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🎧</div>
+                <h3>Era do Streaming</h3>
+                <p>Abriu caminho para Spotify, Apple Music e toda indústria de streaming.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal9" onclick="closeModal('modal9')">
+        <button class="close-modal" onclick="closeModal('modal9')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">📖</div>
+                <h3>Jimmy Wales</h3>
+                <p>Criador da Wikipedia, a enciclopédia livre que qualquer pessoa pode editar.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🌍</div>
+                <h3>Conhecimento Global</h3>
+                <p>Disponível em mais de 300 idiomas, com milhões de artigos.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🤝</div>
+                <h3>Colaboração</h3>
+                <p>Milhões de voluntários contribuem gratuitamente para o conhecimento mundial.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal10" onclick="closeModal('modal10')">
+        <button class="close-modal" onclick="closeModal('modal10')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🎨</div>
+                <h3>Perfis Personalizados</h3>
+                <p>MySpace permitia customizar perfis com HTML, CSS e música de fundo.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🎵</div>
+                <h3>Música Social</h3>
+                <p>Primeira rede social focada em música, descobrindo novos artistas.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">👥</div>
+                <h3>Top 8 Friends</h3>
+                <p>O famoso "Top 8" causava dramas sociais sobre quem eram seus melhores amigos!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal11" onclick="closeModal('modal11')">
+        <button class="close-modal" onclick="closeModal('modal11')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">👨‍🎓</div>
+                <h3>Dorm de Harvard</h3>
+                <p>Mark Zuckerberg criou o Facebook no seu quarto de estudante em Harvard.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">📖</div>
+                <h3>The Facebook</h3>
+                <p>Originalmente chamado "The Facebook", era só para estudantes universitários.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🤝</div>
+                <h3>Conexões Sociais</h3>
+                <p>Revolucionou como as pessoas se conectam e compartilham suas vidas online.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal12" onclick="closeModal('modal12')">
+        <button class="close-modal" onclick="closeModal('modal12')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🐘</div>
+                <h3>Me at the Zoo</h3>
+                <p>Primeiro vídeo do YouTube, de 19 segundos, mostrando elefantes no zoológico.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">💰</div>
+                <h3>Vendido para Google</h3>
+                <p>Google comprou o YouTube por $1.65 bilhões em apenas 20 meses.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🎬</div>
+                <h3>Democratização</h3>
+                <p>Qualquer pessoa pode criar e compartilhar vídeos com o mundo inteiro.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal13" onclick="closeModal('modal13')">
+        <button class="close-modal" onclick="closeModal('modal13')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🐦</div>
+                <h3>Jack Dorsey</h3>
+                <p>Criador do Twitter, inspirado em mensagens SMS para grupos.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">📱</div>
+                <h3>140 Caracteres</h3>
+                <p>Limite baseado nos SMS, forçando mensagens concisas e diretas.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">📰</div>
+                <h3>Notícias em Tempo Real</h3>
+                <p>Virou a fonte mais rápida de notícias e tendências mundiais.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal14" onclick="closeModal('modal14')">
+        <button class="close-modal" onclick="closeModal('modal14')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">📱</div>
+                <h3>Steve Jobs</h3>
+                <p>"Hoje, a Apple vai reinventar o telefone" - apresentação histórica de 2007.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">👆</div>
+                <h3>Tela Touch</h3>
+                <p>Primeira tela touch capacitiva em um telefone, eliminando teclados físicos.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🌐</div>
+                <h3>Internet Real</h3>
+                <p>Primeiro telefone com navegador web completo, não apenas WAP.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal15" onclick="closeModal('modal15')">
+        <button class="close-modal" onclick="closeModal('modal15')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🕵️</div>
+                <h3>Satoshi Nakamoto</h3>
+                <p>Identidade misteriosa que criou o Bitcoin e depois desapareceu.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">⛓️</div>
+                <h3>Blockchain</h3>
+                <p>Tecnologia revolucionária de registro distribuído e imutável.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🍕</div>
+                <h3>Primeira Compra</h3>
+                <p>2 pizzas por 10.000 bitcoins - hoje valeria milhões de dólares!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal16" onclick="closeModal('modal16')">
+        <button class="close-modal" onclick="closeModal('modal16')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">💬</div>
+                <h3>Brian & Jan</h3>
+                <p>Ex-funcionários do Yahoo que criaram o WhatsApp para substituir SMS caros.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🌍</div>
+                <h3>Global</h3>
+                <p>Conecta mais de 2 bilhões de pessoas em todo o mundo gratuitamente.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">💰</div>
+                <h3>Vendido para Facebook</h3>
+                <p>Facebook comprou por $19 bilhões - maior aquisição da história na época.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal17" onclick="closeModal('modal17')">
+        <button class="close-modal" onclick="closeModal('modal17')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">📸</div>
+                <h3>Filtros Vintage</h3>
+                <p>Instagram popularizou filtros que faziam fotos digitais parecerem antigas.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">⏱️</div>
+                <h3>Crescimento Explosivo</h3>
+                <p>1 milhão de usuários em 2 meses, vendido para Facebook por $1 bilhão.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🌟</div>
+                <h3>Era dos Influencers</h3>
+                <p>Criou uma nova profissão: influenciadores digitais e criadores de conteúdo.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal18" onclick="closeModal('modal18')">
+        <button class="close-modal" onclick="closeModal('modal18')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">👻</div>
+                <h3>Evan Spiegel</h3>
+                <p>Estudante de Stanford que criou mensagens que desaparecem.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">⏰</div>
+                <h3>Mensagens Temporárias</h3>
+                <p>Primeira plataforma onde o conteúdo desaparece automaticamente.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">📱</div>
+                <h3>Stories</h3>
+                <p>Inventou o formato Stories, copiado por Instagram, Facebook e WhatsApp.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal19" onclick="closeModal('modal19')">
+        <button class="close-modal" onclick="closeModal('modal19')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🎵</div>
+                <h3>Musical.ly</h3>
+                <p>Começou como Musical.ly para sincronização labial, depois virou TikTok.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">📱</div>
+                <h3>Vídeo Vertical</h3>
+                <p>Popularizou vídeos verticais, mudando como filmamos e assistimos conteúdo.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🧠</div>
+                <h3>Algoritmo Viciante</h3>
+                <p>IA que aprende seus gostos e cria um feed personalizado infinito.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal20" onclick="closeModal('modal20')">
+        <button class="close-modal" onclick="closeModal('modal20')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🚀</div>
+                <h3>Ultra Velocidade</h3>
+                <p>Até 10 Gbps - velocidade quase instantânea para qualquer download.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🚗</div>
+                <h3>Carros Autônomos</h3>
+                <p>5G permite comunicação instantânea entre carros e infraestrutura.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🥽</div>
+                <h3>Realidade Virtual</h3>
+                <p>Experiências VR/AR sem lag, criando mundos digitais perfeitos.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal21" onclick="closeModal('modal21')">
+        <button class="close-modal" onclick="closeModal('modal21')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🏠</div>
+                <h3>Home Office</h3>
+                <p>Trabalho remoto se tornou normal para milhões de pessoas mundialmente.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🎓</div>
+                <h3>Educação Online</h3>
+                <p>Escolas e universidades migraram para aulas virtuais da noite para o dia.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🛒</div>
+                <h3>E-commerce Boom</h3>
+                <p>Compras online cresceram 300%, delivery virou essencial.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal22" onclick="closeModal('modal22')">
+        <button class="close-modal" onclick="closeModal('modal22')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🎨</div>
+                <h3>Arte Digital Única</h3>
+                <p>NFTs permitiram provar propriedade de arte digital pela primeira vez.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🌐</div>
+                <h3>Mundos Virtuais</h3>
+                <p>Metaverso promete mundos digitais onde vivemos, trabalhamos e nos divertimos.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">👤</div>
+                <h3>Avatares Digitais</h3>
+                <p>Identidades virtuais que representam pessoas em espaços digitais.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal23" onclick="closeModal('modal23')">
+        <button class="close-modal" onclick="closeModal('modal23')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🤖</div>
+                <h3>ChatGPT</h3>
+                <p>IA conversacional que pode responder perguntas e ajudar em tarefas complexas.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🎨</div>
+                <h3>IA Criativa</h3>
+                <p>Ferramentas como DALL-E e Midjourney criam imagens a partir de descrições.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🧠</div>
+                <h3>Machine Learning</h3>
+                <p>Algoritmos que aprendem e melhoram sozinhos, revolucionando a tecnologia.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal24" onclick="closeModal('modal24')">
+        <button class="close-modal" onclick="closeModal('modal24')">×</button>
+        <div class="modal-container">
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🏠</div>
+                <h3>Casa Inteligente</h3>
+                <p>Lâmpadas, termostatos, câmeras - tudo controlado pelo smartphone.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🚗</div>
+                <h3>Carros Conectados</h3>
+                <p>Veículos que se comunicam entre si e com a infraestrutura das cidades.</p>
+            </div>
+            <div class="modal-image">
+                <div class="modal-image-placeholder">🌱</div>
+                <h3>Agricultura 4.0</h3>
+                <p>Sensores monitoram plantações, otimizando irrigação e colheita.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fecha modal ao apertar ESC
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                const activeModal = document.querySelector('.modal-overlay.active');
+                if (activeModal) {
+                    closeModal(activeModal.id);
+                }
+            }
+        });
+
+        // Previne que cliques nos modais fechem o modal
+        document.querySelectorAll('.modal-container').forEach(container => {
+            container.addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
+        });
+
+        // Botão voltar ao topo
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mostrar/esconder botão voltar ao topo e atualizar barra de progresso
+        window.addEventListener('scroll', function () {
+            const backToTop = document.getElementById('backToTop');
+            const progressBar = document.getElementById('progressBar');
+
+            // Botão voltar ao topo
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+
+            // Barra de progresso
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        // Animação suave ao clicar nos cards
+        document.querySelectorAll('.timeline-card').forEach(card => {
+            card.addEventListener('click', function () {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Lazy loading para melhor performance
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+
+</html>
